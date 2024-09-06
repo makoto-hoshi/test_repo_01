@@ -1,0 +1,30 @@
+name: "create pr to sync develop with master"
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  create-sync-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set Timestamp
+        env:
+          TZ: 'Asia/Tokyo'
+        run: echo "TIMESTAMP=$(date '+%Y%m%d%H%M%S')" > $GITHUB_ENV
+
+      - name: Create Pull Request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MERGE_BRANCH_FROM: 'feature/sync_develop_with_master-[${{ env.TIMESTAMP }}]'
+          MERGE_BRANCH_INTO: 'develop'
+        run: |
+          TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
+          git checkout -b $MERGE_BRANCH_FROM
+          git push origin $MERGE_BRANCH_FROM
+          gh pr create --draft --base $MERGE_BRANCH_INTO --head $MERGE_BRANCH_FROM --title "[wip][PR自動作成テスト]Sync develop with master" --body "This PR syncs the develop branch with the latest changes from master."
