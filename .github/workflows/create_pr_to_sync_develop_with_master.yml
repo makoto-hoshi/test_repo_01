@@ -28,4 +28,4 @@ jobs:
         run: |
           git checkout -b $MERGE_BRANCH_FROM
           git push origin $MERGE_BRANCH_FROM
-          gh pr create --draft --base $MERGE_BRANCH_INTO --head $MERGE_BRANCH_FROM --title '$PR_TITLE' --body '$PR_BODY'
+          gh pr create --draft --base $MERGE_BRANCH_INTO --head $MERGE_BRANCH_FROM --title "$PR_TITLE" --body "$PR_BODY"
