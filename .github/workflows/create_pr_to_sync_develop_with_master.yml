@@ -24,7 +24,9 @@ jobs:
           MERGE_BRANCH_INTO: 'develop'
           MERGE_BRANCH_FROM: 'release/merged_master_${{ env.TIMESTAMP }}'
           PR_TITLE: '[${{ env.TIMESTAMP }}]Sync develop with master'
-          PR_BODY: 'This PR(created by ${{ github.workflow }}) syncs the develop branch with the latest changes from master.'
+          PR_BODY: |
+            '${{ github.repositoryUrl }}/pull/${{ github.event.pull_request.number }}'
+            'This PR(created by ${{ github.run_id }}) syncs the develop branch with the latest changes from master.'
         run: |
           git checkout -b $MERGE_BRANCH_FROM
           git push origin $MERGE_BRANCH_FROM
