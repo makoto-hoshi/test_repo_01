@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Set Timestamp
         env:
@@ -23,8 +23,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MERGE_BRANCH_INTO: 'develop'
           MERGE_BRANCH_FROM: 'release/merged_master_${{ env.TIMESTAMP }}'
-          PR_TITLE: "[${{ env.TIMESTAMP }}]Sync develop with master"
-          PR_BODY: "This PR syncs the develop branch with the latest changes from master."
+          PR_TITLE: '[${{ env.TIMESTAMP }}]Sync develop with master'
+          PR_BODY: 'This PR syncs the develop branch with the latest changes from master.'
         run: |
           git checkout -b $MERGE_BRANCH_FROM
           git push origin $MERGE_BRANCH_FROM
