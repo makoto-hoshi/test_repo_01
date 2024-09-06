@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    types:
+      - closed
 
 jobs:
   create-sync-pr:
@@ -23,8 +26,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MERGE_BRANCH_INTO: 'develop'
           MERGE_BRANCH_FROM: 'release/merged_master_${{ env.TIMESTAMP }}'
-          PR_TITLE: '[${{ env.TIMESTAMP }}]Sync develop with master'
-          PR_BODY: |
+          PR_TITLE: |
             '${{ github.repositoryUrl }}/pull/${{ github.event.pull_request.number }}'
             'This PR(created by ${{ github.run_id }}) syncs the develop branch with the latest changes from master.'
         run: |
