@@ -21,7 +21,7 @@ jobs:
       - name: Create Pull Request
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MERGE_BRANCH_FROM: 'feature/sync_develop_with_master-[${{ env.TIMESTAMP }}]'
+          MERGE_BRANCH_FROM: 'feature/sync_develop_with_master_${{ env.TIMESTAMP }}'
           MERGE_BRANCH_INTO: 'develop'
         run: |
           TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
